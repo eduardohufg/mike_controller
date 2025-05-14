@@ -1,0 +1,5 @@
+/main_controller:
+  ros__parameters:
+    mode: 0
+    controller: 2
+    path: 0
