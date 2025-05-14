@@ -163,22 +163,21 @@ class MainController(Node):
         K1 = 0.5
         K2 = 0.5
         q2 = 0.5
-        EPS = 1e-3          # evita división por cero cuando |zeta|→0
+        EPS = 1e-3          
 
         if None in (self.x, self.y, self.theta, self.x_d, self.y_d):
-            return                                            # aún no hay datos
+            return                                        
 
-        # ---------- errores ----------
+   
         dx   = self.x_d - self.x
         dy   = self.y_d - self.y
-        l    = math.hypot(dx, dy)                             # distancia
-        zeta = math.atan2(dy, dx) - self.theta                # rumbo → objetivo
-        zeta = math.atan2(math.sin(zeta), math.cos(zeta))     # normaliza
+        l    = math.hypot(dx, dy)                             
+        zeta = math.atan2(dy, dx) - self.theta              
+        zeta = math.atan2(math.sin(zeta), math.cos(zeta))   
 
-        # Si no tienes orientación deseada, usa psi = zeta
-        psi  = zeta                                           # o define un phi_d fijo
+    
+        psi  = zeta                                          
 
-        # ---------- ley de control ----------
         u = K1 * math.cos(zeta) * l
 
         z_safe = zeta if abs(zeta) > EPS else EPS
@@ -186,7 +185,6 @@ class MainController(Node):
             + (K1 / z_safe) * math.cos(zeta) * math.sin(zeta)
               * (zeta + q2 * psi) )
 
-        # ---------- publica cmd_vel ----------
         cmd = Twist()
         cmd.linear.x  = u
         cmd.angular.z = w
@@ -194,8 +192,7 @@ class MainController(Node):
         self.pub.publish(cmd)
         self.pub_turtle.publish(cmd)
 
-        # ---------- notifica llegada ----------
-        arrived = abs(l) < 0.05                       # umbral de 5 cm
+        arrived = abs(l) < 0.05                     
         self.arrtived.data = arrived
         self.pub_arrived.publish(self.arrtived)
 
