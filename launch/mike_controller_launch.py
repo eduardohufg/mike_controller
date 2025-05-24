@@ -32,10 +32,37 @@ def generate_launch_description():
                        parameters=[config]
                        )
     
+    node6 = Node(package='mike_controller',
+                       executable='encoder',
+                       name="encoder",
+                       )
+    
+    node7 = Node(package='mike_controller',
+                        executable='odometry_calculated_turtle',
+                        name="odometry_calculated_turtle",
+                        )
+    
+    node8 = Node(package='mike_controller',
+                        executable='trayectory',
+                        name="trayectory",
+                        )
+    
+    node9 = Node(package='mike_controller',
+                        executable='error_metrics',
+                        name="error_metrics",
+                        parameters=[config]
+                        )
+    
+    node10 = Node(package='mike_controller',
+                        executable='itae',
+                        name="itae",
+                        parameters=[config]
+                        )
+    
 
     
     
     
-    l_d = LaunchDescription([node1, node2, node3, node4, node5])
+    l_d = LaunchDescription([node1,node2, node6, node7, node8, node5, node10])
 
     return l_d

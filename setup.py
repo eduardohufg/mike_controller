@@ -28,6 +28,11 @@ setup(
             'main_controller = mike_controller.main_controller:main',
             'path_generator = mike_controller.path_generator:main',
             'odometry_turtle = mike_controller.odometry_turtle:main',
+            'encoder = mike_controller.encoders:main',
+            'odometry_calculated_turtle = mike_controller.odometry_calculated_turtle:main',
+            'trayectory = mike_controller.trayectory:main',
+            'error_metrics = mike_controller.error_metrics:main',
+            'itae = mike_controller.itae:main',
         ],
     },
 )

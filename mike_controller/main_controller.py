@@ -163,7 +163,10 @@ class MainController(Node):
         K1 = 0.5
         K2 = 0.5
         q2 = 0.5
-        EPS = 1e-3          
+        EPS = 1e-3
+
+        max_speed = 0.2
+        max_angular_speed = 1.0          
 
         if None in (self.x, self.y, self.theta, self.x_d, self.y_d):
             return                                        
@@ -186,8 +189,8 @@ class MainController(Node):
               * (zeta + q2 * psi) )
 
         cmd = Twist()
-        cmd.linear.x  = u
-        cmd.angular.z = w
+        cmd.linear.x  = min(max(u, -max_speed), max_speed)
+        cmd.angular.z = min(max(w, -max_angular_speed), max_angular_speed)
 
         self.pub.publish(cmd)
         self.pub_turtle.publish(cmd)
